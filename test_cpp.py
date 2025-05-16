@@ -104,12 +104,13 @@ for idx, input_data in enumerate(inputs):
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        text=True
+        text=True,
+        encoding='utf-8'  # 关键修改：解决 UnicodeDecodeError
     )
 
     stdout, stderr = process.communicate(input=input_data)
 
-    print(stdout)
+    print(stdout.strip())
 
     if stderr:
-        print(f"\n⚠️ 第 {idx + 1} 组发生错误:\n", stderr)
+        print(f"\n⚠️ 第 {idx + 1} 组发生错误:\n{stderr.strip()}")
